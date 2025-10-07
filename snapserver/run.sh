@@ -101,4 +101,5 @@ cat > "$json_config" <<EOF
 EOF
 
 bashio::log.info "Starting SnapServer..."
-exec snapserver
+# exec snapserver
+exec snapserver --config /var/lib/snapserver/server.json
