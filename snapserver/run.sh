@@ -71,10 +71,17 @@ echo "[logging]" >> "${config}"
 logging=$(bashio::config 'logging_enabled')
 echo "debug = ${logging}" >> "${config}"
 
-# Threads
+# # Threads
+# echo "[server]" >> "${config}"
+# threads=$(bashio::config 'server_threads')
+# echo "threads = ${threads}" >> "${config}"
+
+# Threads + mDNS
 echo "[server]" >> "${config}"
 threads=$(bashio::config 'server_threads')
 echo "threads = ${threads}" >> "${config}"
+enable_mdns=$(bashio::config 'enable_mdns')
+echo "enable_mdns = ${enable_mdns}" >> "${config}"
 
 # streaming client
 echo "[streaming_client]" >> "${config}"
