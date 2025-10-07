@@ -95,7 +95,7 @@ mkdir -p "$(dirname "$json_config")"
 cat > "$json_config" <<EOF
 {
   "server": {
-    "enable_mdns": false
+    "enableMdns": false
   }
 }
 EOF
