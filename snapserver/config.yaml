@@ -16,16 +16,17 @@ audio: true
 init: false
 options:
   streams: "source = spotify:///librespot?name=Spotify&bitrate=320"
-  buffer: 1000
+  buffer: 333
   codec: "flac"
   send_to_muted: "false"
-  sampleformat: "48000:16:2"
+  sampleformat: "44100:16:2"
   http_enabled: "true"
   tcp_enabled: "true"
   logging_enabled: "true"
   server_threads: -1
   server_datadir: "/usr/share/snapserver/snapweb"
   initial_volume: 100
+  enable_mdns: false   # [M2-07OCT2025] I have added this line to disable mDNS
 schema:
   streams: str
   buffer: int
@@ -40,8 +41,10 @@ schema:
   initial_volume: int
   stream_bis: str?
   stream_ter: str?
+  enable_mdns: bool?   # [M2-07OCT2025] I have added this line to disable mDNS
 ports:
   1704/tcp: 1704
   1705/tcp: 1705
   1780/tcp: 1780
   4953/tcp: 4953
+server:
