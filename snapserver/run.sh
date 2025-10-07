@@ -94,8 +94,8 @@ json_config="/var/lib/snapserver/server.json"
 mkdir -p "$(dirname "$json_config")"
 cat > "$json_config" <<EOF
 {
-  "server": {
-    "enableMdns": false
+  "stream": {
+    "mdns": false
   }
 }
 EOF
