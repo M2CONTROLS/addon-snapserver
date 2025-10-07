@@ -88,5 +88,17 @@ echo "[streaming_client]" >> "${config}"
 initial_volume=$(bashio::config 'initial_volume')
 echo "initial_volume = ${initial_volume}" >> "${config}"
 
+# Write server.json to disable mDNS
+json_config="/var/lib/snapserver/server.json"
+
+mkdir -p "$(dirname "$json_config")"
+cat > "$json_config" <<EOF
+{
+  "server": {
+    "enable_mdns": false
+  }
+}
+EOF
+
 bashio::log.info "Starting SnapServer..."
 exec snapserver
