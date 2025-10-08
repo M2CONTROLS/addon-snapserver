@@ -4,34 +4,28 @@ FROM $BUILD_FROM
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Install required packages
-RUN apk add --no-cache \
-        pulseaudio alsa-plugins-pulse bash \
-        libstdc++ \
-        ca-certificates \
-        curl \
-        unzip
-
-# Install Librespot
-RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ librespot
-
-# Install Snapcast Server v0.28.0 manually
-RUN curl -L -o snapcast.zip https://github.com/badaix/snapcast/releases/download/v0.28.0/snapcast-0.28.0.zip && \
-    unzip snapcast.zip && \
-    cp -av snapcast-0.28.0/snapserver /usr/bin/snapserver && \
-    chmod +x /usr/bin/snapserver && \
-    rm -rf snapcast*
-
-# Install Snapweb
+# hadolint ignore=DL3003
 RUN \
-    mkdir -p /usr/share/snapserver/snapweb && \
-    curl -L -o snapweb.zip https://github.com/badaix/snapweb/releases/download/v0.8.0/snapweb.zip && \
+    apk add --no-cache \
+        pulseaudio alsa-plugins-pulse bash \
+    && rm -fr \
+        /tmp/*
+        
+#Install Librespot
+RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ librespot=0.6.0-r0
+
+#Install Snapcast
+RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community/ snapcast-server=0.31.0-r0
+
+#Install Snapweb
+RUN \
+    wget https://github.com/badaix/snapweb/releases/download/v0.8.0/snapweb.zip && \
     unzip -o snapweb.zip -d /usr/share/snapserver/snapweb/ && \
     rm snapweb.zip
 
-# Copy run script
+# Copy data for add-on
 COPY run.sh /
-RUN chmod +x /run.sh
+RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
 
