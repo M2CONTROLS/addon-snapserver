@@ -16,8 +16,8 @@ RUN apk add --no-cache \
 RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ librespot
 
 # Install Snapcast Server v0.28.0 manually
-RUN curl -L -o snapcast.tar.xz https://github.com/badaix/snapcast/releases/download/v0.28.0/snapcast-0.28.0.tar.xz && \
-    tar -xf snapcast.tar.xz && \
+RUN curl -L -o snapcast.zip https://github.com/badaix/snapcast/releases/download/v0.28.0/snapcast-0.28.0.zip && \
+    unzip snapcast.zip && \
     cp -av snapcast-0.28.0/snapserver /usr/bin/snapserver && \
     chmod +x /usr/bin/snapserver && \
     rm -rf snapcast*
